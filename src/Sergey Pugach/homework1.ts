@@ -5,7 +5,7 @@ type sn = (string | number);
 //   Возвращает true, если все аргументы, кроме первого входят в первый.
 //   Первым всегда должен быть массив.
 
-function isInArray(first: sn[], ...rest: sn[]): boolean {
+export function isInArray(first: sn[], ...rest: sn[]): boolean {
     return rest.every((value) => {
       return (first.indexOf(value) >= 0);
     });
@@ -15,11 +15,11 @@ function isInArray(first: sn[], ...rest: sn[]): boolean {
 //   писать функцию summator(), которая сумирует переданые ей аргументы.
 //   Аргументы могут быть либо строкового либо числового типа. Количество их не ограничено
 
-function isNumber(a: sn): a is number {
+export function isNumber(a: sn): a is number {
     return typeof a === "number";
 }
 
-function summator(...rest: sn[]): number {
+export function summator(...rest: sn[]): number {
     return rest.reduce<number>(
         (acc: number, next: sn) => {
             return isNumber(next) ?
@@ -36,10 +36,12 @@ function summator(...rest: sn[]): number {
 //   Порядок элементов результирующего массива должен совпадать с порядком,
 //   в котором они встречаются в оригинальной структуре.
 
-function getUnique(...rest: sn[]): sn[] {
+export function getUnique(...rest: sn[]): sn[] {
     let uniqueArr: sn[] = [];
-    for (let el of rest) {
-        if (uniqueArr.indexOf(el) === -1) uniqueArr.push(el);
+    for (const el of rest) {
+        if (uniqueArr.indexOf(el) === -1) {
+          uniqueArr.push(el);
+        }
     }
 
     return uniqueArr;
@@ -52,7 +54,7 @@ function getUnique(...rest: sn[]): sn[] {
 //       s1ta$%r3t 2 hel^low  ->  t1ra$%t3s 2 wol^leh
 //       s1tar3t 2   low5  ->  t1rat3s 2   wol5
 
-function isLetter(str: string): boolean {
+export function isLetter(str: string): boolean {
     if (str.length !== 1) {
         throw new Error("Parameter must be a letter");
     }
@@ -60,10 +62,10 @@ function isLetter(str: string): boolean {
     return /[a-zA-Z]/.test(str);
 }
 
-function revertWord(str: string): string {
-    let result = [];
-    let temp = [];
-    let letters = str.split("");
+export function revertWord(str: string): string {
+    const result = [];
+    const temp = [];
+    const letters = str.split("");
 
     for (let i = 0, len = letters.length; i < len; i++) {
         if (isLetter(letters[i])) {
@@ -82,6 +84,6 @@ function revertWord(str: string): string {
     return result.join("");
 }
 
-function revertSentence(str: string): string {
+export function revertSentence(str: string): string {
     return str.split(" ").map(revertWord).join(" ");
 }
